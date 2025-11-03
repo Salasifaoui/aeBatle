@@ -2,11 +2,13 @@ import { Avatar, AvatarFallbackText } from "@/components/ui/avatar";
 import { Box } from "@/components/ui/box";
 import { Button, ButtonIcon, ButtonText } from "@/components/ui/button";
 import { HStack } from "@/components/ui/hstack";
+import { Image } from "@/components/ui/image";
 import { NavBar } from "@/components/ui/nav-bar";
 import { ScreenLayout } from "@/components/ui/screen-layout/screen-layout";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { ButtonArrowBack, CardHero } from "@/src/components";
+import { useGameDetails } from "@/src/features/games/hooks/useGameDetails";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Bookmark, ChevronRight, Diamond, Play } from "lucide-react-native";
 import { Pressable, ScrollView } from "react-native";
@@ -47,13 +49,17 @@ const fakeBidders: Bidder[] = [
 export default function GameDetails() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const id = (params.id as string) || "";
+  const { game } = useGameDetails(id, { refreshIntervalMs: 10000 });
   
   // Get data from params or use defaults
-  const gameName = (params.name as string) || "Doodle #8537";
-  const gameBalance = parseFloat((params.balance as string) || "14.2");
-  const backgroundColor = (params.backgroundColor as string) || "#D1FAE5";
-  const ownerName = (params.ownerName as string) || "Admin";
+  const gameName = game?.name || (params.name as string) || "Game";
+  const numberUser = game?.numberUser ?? Number(params.numberUser || 0);
+  const nbreOnline = game?.nbre_online ?? Number(params.nbre_online || 0);
+  const backgroundColor = game?.bgcolor || (params.backgroundColor as string) || "#D1FAE5";
+  const ownerName = game?.ownerName || (params.ownerName as string) || "Admin";
   const ownerAvatar = (params.ownerAvatar as string) || "A";
+  const imageUrl = game?.imageUrl;
 
   return (
     <ScreenLayout>
@@ -73,11 +79,12 @@ export default function GameDetails() {
             height: 350,
           }}
         >
+          {!imageUrl ?
           <Box className="w-full h-full items-center justify-center">
             <Text className="text-gray-400 text-lg">NFT Image</Text>
           </Box>
+          : <Image source={{ uri: imageUrl }} size="2xl" className="w-full h-full rounded-3xl" />}
         </Box>
-
         {/* NFT Information Card - Overlapping with image */}
         <CardHero className="w-full -mt-12">
           <VStack space="md">
@@ -99,14 +106,14 @@ export default function GameDetails() {
                 </Text>
               </HStack>
 
-              {/* Price */}
+              {/* Online users */}
               <Box
                 className="flex-row items-center px-4 py-2 rounded-full"
                 style={{ backgroundColor: "#10B981" }}
               >
                 <Diamond size={16} color="white" />
                 <Text className="text-white text-base font-semibold ml-1">
-                  {gameBalance}
+                  {nbreOnline}
                 </Text>
               </Box>
             </HStack>
@@ -115,14 +122,14 @@ export default function GameDetails() {
 
         {/* About NFT Section */}
         <VStack space="md" className="mb-6">
-          <Text className="text-xl font-bold text-gray-900">About NFT</Text>
+          <Text className="text-xl font-bold text-gray-900">About Game</Text>
           
-          <Text className="text-blue-600 text-base font-medium">
-            By Doodles LLC
-          </Text>
+          {ownerName ? (
+            <Text className="text-blue-600 text-base font-medium">By {ownerName}</Text>
+          ) : null}
 
           <Text className="text-gray-600 text-sm leading-6">
-            A community-driven collectibles project featuring art by Burnt Toast. Doodles come in a joyful range of colors, traits and sizes with a collection size of 10,000.
+            {game?.about || "No description available."}
           </Text>
 
           <Pressable>

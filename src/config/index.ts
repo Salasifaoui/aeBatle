@@ -5,6 +5,7 @@ export const APP_CONFIG = {
     // APP_URL: process.env.EXPO_PUBLIC_APP_URL || 'http://localhost:8081',
     DATABASE_ID: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || 'aeBatle',
     USERS_COLLECTION: process.env.EXPO_PUBLIC_APPWRITE_USERS_COLLECTION_ID || '',
+    GAMES_COLLECTION: process.env.EXPO_PUBLIC_APPWRITE_GAMES_COLLECTION_ID || 'games',
     STORAGE_BUCKET_ID: process.env.EXPO_PUBLIC_APPWRITE_AVATARS_BUCKET || 'storage',
     STORAGE_BUCKET_PRODUCTS: process.env.EXPO_PUBLIC_APPWRITE_GAMES_BUCKET || 'games',
   } as const;
