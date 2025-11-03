@@ -20,11 +20,13 @@ const convertAppwriteUser = (appwriteUser: Models.User<Models.Preferences> | nul
     userId: appwriteUser.$id,
     username: appwriteUser.name || '',
     email: appwriteUser.email || '',
-    avatar: undefined,
     imageUrl: undefined,
     status: undefined,
-    bio: undefined,
+    address: undefined,
     is_online: undefined,
+    gender: undefined,
+    interest: undefined,
+    location: undefined,
   };
 };
 

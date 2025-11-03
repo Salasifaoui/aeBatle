@@ -11,6 +11,7 @@ import { AeSdkProvider } from "@/src/dex/context/AeSdkContext";
 import { useAuth } from "@/src/features/auth";
 import { useEffect } from "react";
 
+
 export const unstable_settings = {
   anchor: "index",
 };

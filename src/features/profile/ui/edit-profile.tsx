@@ -44,7 +44,7 @@ export function EditProfileScreen() {
     if (currentProfile) {
       setName(currentProfile.username || "");
       setEmail(currentProfile.email || "");
-      setBio(currentProfile.bio || "");
+      setBio(currentProfile.address || "");
     }
   }, [profile, profileFromAtom]);
 
@@ -54,7 +54,7 @@ export function EditProfileScreen() {
     if (currentProfile) {
       const nameChanged = name.trim() !== (currentProfile.username || "");
       const emailChanged = email.trim() !== (currentProfile.email || "");
-      const bioChanged = bio.trim() !== (currentProfile.bio || "");
+      const bioChanged = bio.trim() !== (currentProfile.address || "");
       const imageChanged =
         selectedImage?.url !== (currentProfile.imageUrl || "");
       setHasChanges(nameChanged || emailChanged || bioChanged || imageChanged);
@@ -75,7 +75,7 @@ export function EditProfileScreen() {
 
     const nameChanged = name.trim() !== (currentProfile.username || "");
     const emailChanged = email.trim() !== (currentProfile.email || "");
-    const bioChanged = bio.trim() !== (currentProfile.bio || "");
+    const bioChanged = bio.trim() !== (currentProfile.address || "");
     if (!name.trim()) {
       Alert.alert("Invalid Name", "Name cannot be empty.");
       return;
@@ -99,7 +99,7 @@ export function EditProfileScreen() {
       }
 
       if (bioChanged) {
-        updateData.bio = bio.trim();
+        updateData.address = bio.trim();
       }
 
       // Update profile using the hook

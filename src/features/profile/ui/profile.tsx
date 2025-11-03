@@ -62,7 +62,7 @@ export default function Profile() {
             {userProfile?.email}
           </Text>
           <Text className="text-sm text-gray-700 text-center mb-5">
-            {userProfile?.bio}
+            {userProfile?.address}
           </Text>
 
           {/* Stats */}

@@ -2,10 +2,9 @@ export interface User {
   userId: string;        // Appwrite account.$id
   username: string;       // Display name
   email: string;          // Email for quick search
-  avatar?: string;    // Profile image URL from storage
   imageUrl?: string;    // Profile image URL from storage
   status?: string;        // User status (online, busy, etc.)
-  bio?: string;          // Short bio
+  address?: string;          // Short bio
   is_online?: boolean;   // Creation timestamp
   gender?: string;    // Gender
   interest?: string[];    // Interest
@@ -19,8 +18,7 @@ export interface AuthUser extends User {
 export interface UserProfile {
   username: string;
   email: string;
-  bio?: string;
-  avatar?: string;
+  address?: string;
   status?: string;
   imageUrl?: string;
   is_online?: boolean;

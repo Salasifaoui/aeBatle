@@ -105,7 +105,7 @@ export function LoginScreen() {
           </CardHero>
         </CardHero>
 
-        <CardHero className="gap-4 items-center ">
+   
           <ButtonAction
             text="Login"
             onPress={handleSubmit}
@@ -119,9 +119,9 @@ export function LoginScreen() {
             colorIconAs="text-white"
             sizeIcon={24}
           />
-</CardHero>
 
-          <CardHero>
+
+    
           <ButtonAction
             action="secondary"
             variant="link"
@@ -129,8 +129,6 @@ export function LoginScreen() {
             onPress={() => router.push("/(auth)/forgot-password")}
             className="text-primary-500"
           />
-          </CardHero>
-        
       </CardHero>
     </ScreenLayout>
   );

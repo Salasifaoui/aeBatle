@@ -24,7 +24,7 @@ const fakeBidders: Bidder[] = [
   {
     id: "1",
     name: "Jollie",
-    avatar: "J",
+    avatar: "A",
     bid: 14.7,
     avatarColor: "#DBEAFE",
   },
@@ -52,8 +52,8 @@ export default function GameDetails() {
   const gameName = (params.name as string) || "Doodle #8537";
   const gameBalance = parseFloat((params.balance as string) || "14.2");
   const backgroundColor = (params.backgroundColor as string) || "#D1FAE5";
-  const ownerName = (params.ownerName as string) || "jabjab";
-  const ownerAvatar = (params.ownerAvatar as string) || "J";
+  const ownerName = (params.ownerName as string) || "Admin";
+  const ownerAvatar = (params.ownerAvatar as string) || "A";
 
   return (
     <ScreenLayout>
