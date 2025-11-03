@@ -1,0 +1,74 @@
+import {
+  profileUpdateErrorAtom,
+  profileUpdateLoadingAtom,
+  profileUpdateSuccessAtom,
+  updateUserProfileAtom
+} from '@/src/features/profile/store/profileAtoms';
+import { User } from '@/src/types/user';
+import { useAtom } from 'jotai';
+
+interface UpdateProfileData {
+  username?: string;
+  email?: string;
+  bio?: string;
+  avatar?: string;
+  imageUrl?: string;
+  status?: string;
+  is_online?: boolean;
+  birthday?: string;
+  gender?: string;
+  genderPreference?: string[];
+  interest?: string[];
+  location?: string;
+  ageRange?: '13-17' | '18-20' | '18-25' | '26-35' | '36-45' | '55+'
+}
+
+interface UseUpdateProfileReturn {
+  updateProfile: (userId: string, data: UpdateProfileData) => Promise<User | null>;
+  loading: boolean;
+  error: string | null;
+  success: boolean;
+  reset: () => void;
+}
+
+export function useUpdateProfile(): UseUpdateProfileReturn {
+  const [loading] = useAtom(profileUpdateLoadingAtom);
+  const [error] = useAtom(profileUpdateErrorAtom);
+  const [success] = useAtom(profileUpdateSuccessAtom);
+  const [, updateProfileAction] = useAtom(updateUserProfileAtom);
+
+  const updateProfile = async (userId: string, data: UpdateProfileData): Promise<User | null> => {
+    if (!userId) {
+      throw new Error('User ID is required');
+    }
+    console.log('data', JSON.stringify(data, null, 2));
+    // Validate required fields
+    if (data.username !== undefined && !data.username.trim()) {
+      throw new Error('Username cannot be empty');
+    }
+
+    if (data.email !== undefined && (!data.email.trim() || !data.email.includes('@'))) {
+      throw new Error('Please enter a valid email address');
+    }
+
+    try {
+      const updatedUser = await updateProfileAction({ userId, data: data as Partial<User> });
+      return updatedUser;
+    } catch (err) {
+      console.error('Update profile error:', err);
+      throw err;
+    }
+  };
+
+  const reset = () => {
+    // Reset is handled by the atoms themselves
+  };
+
+  return {
+    updateProfile,
+    loading,
+    error,
+    success,
+    reset,
+  };
+}
