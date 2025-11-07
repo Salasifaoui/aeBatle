@@ -1,11 +1,11 @@
 import { User } from "./user";
 export interface Game {
-  id: string;
-  name: string;
-  numberUser: number;
+    $id: string;
+    name: string;
+    numberUser: number;
   bgcolor?: string;
   nbre_online: number;
-  status: string;
+  status: 'new' | 'top' | 'danger' | 'ad';
   imageUrl?: string;
   ownerName?: string;
   about?: string;

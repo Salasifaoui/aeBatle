@@ -9,6 +9,7 @@ import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { ButtonArrowBack, CardHero } from "@/src/components";
 import { useGameDetails } from "@/src/features/games/hooks/useGameDetails";
+import InvitationList from "@/src/features/invitation/ui/invitation-list";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Bookmark, ChevronRight, Diamond, Play } from "lucide-react-native";
 import { Pressable, ScrollView } from "react-native";
@@ -138,6 +139,10 @@ export default function GameDetails() {
             </Text>
           </Pressable>
         </VStack>
+
+        {/* Users List for Invitations */}
+          <InvitationList gameId={id} />
+     
 
         {/* Top Bidders Section */}
         <VStack space="md" className="mb-6">
